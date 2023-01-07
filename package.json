@@ -1,0 +1,29 @@
+{
+  "name": "dev.memocontreras.helloworld-api",
+  "version": "1.0.0",
+  "description": "Senior Dev Hello World API",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lastcron/seniordev-helloworld-apirest-template.git"
+  },
+  "keywords": [
+    "apirest",
+    "helloworld"
+  ],
+  "author": "Mimo Contreras",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/lastcron/seniordev-helloworld-apirest-template/issues"
+  },
+  "homepage": "https://github.com/lastcron/seniordev-helloworld-apirest-template#readme",
+  "dependencies": {
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "junit": "^1.4.9"
+  }
+}
