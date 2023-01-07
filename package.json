@@ -24,6 +24,7 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
-    "junit": "^1.4.9"
+    "junit": "^1.4.9",
+    "nodemon": "^2.0.20"
   }
 }
