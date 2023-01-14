@@ -4,17 +4,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const jwtconfirmation_1 = __importDefault(require("../services/jwtconfirmation"));
 const routesProtected = express_1.default.Router();
-// login. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesProtected.get("/", function (req, res) {
-    res.send("protected dashboard");
+// Route for Global Dashboard - Protected by the JWT Middleware
+routesProtected.get("/", jwtconfirmation_1.default, function (req, res) {
+    console.log("Entering protected route ");
+    res.json({
+        message: "protected dashboard"
+    });
 });
-// recover password. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesProtected.get("/module1", function (req, res) {
-    res.send("Module 1");
+// Route for Module 1 Dashboard - Protected by the JWT Middleware
+routesProtected.get("/module1", jwtconfirmation_1.default, function (req, res) {
+    res.json({
+        message: "Module 1"
+    });
 });
-// OTP password. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesProtected.get("/module2", function (req, res) {
-    res.send("Module 2");
+// Route for Module 2 Dashboard - Protected by the JWT Middleware
+routesProtected.get("/module2", jwtconfirmation_1.default, function (req, res) {
+    res.json({
+        message: "Module 2"
+    });
 });
 exports.default = routesProtected;
