@@ -16,10 +16,10 @@ Some of the features:
 * Cors is in use
 * GZIP Compression enables
 * JWT Token has been implmented along with public endpoints and protected endpoints
+* Morgan package added - Log requests to console
 
 Improvements:
-* Move business logic to controller file
-* postman doc and project generation
+* 
 
 Next Steps:
 * If using any SQL next step would be to add Sequalize. https://sequelize.org/docs/v6/getting-started/ , Models folder is alrady in place

@@ -1,18 +1,19 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
-import generateAccessToken from '../services/loginservice';
-//import loging from '../controllers/login';
+import publicController from '../controllers/publicController';
 
 
 const routesPublic = express.Router();
+const controller = new publicController();
+
 
 // Get config vars
 dotenv.config();
 
 
 routesPublic.get("/", function (req, res) {
-  
+
   res.json({
     message:"API ALIVE - CHECK DOCUMENTATION FOR PROPER USAGE"
   });
@@ -20,32 +21,34 @@ routesPublic.get("/", function (req, res) {
 });
 
 
-routesPublic.post("/login", function (req, res) {
+routesPublic.post("/login", async function (req, res) {
   
-  console.log('Got body:', req.body);
-  console.log("Entering login: " + req.body.username)
-  const token = generateAccessToken({ username: req.body.username });
-  console.log("Token: " + token)
+  const response = await controller.login(req)
+  
   res.json({
-    token:token
+    response
   });
 
 });
   
 // recover password. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesPublic.get("/recover", function (req, res) {
+routesPublic.get("/recover", async function (req, res) {
 
+  const response = await controller.recover(req)
+  
   res.json({
-    message:"Recover Password"
+    response
   });
     
   });
 
 // OTP password. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesPublic.get("/otprecover", function (req, res) {
+routesPublic.get("/register", async function (req, res) {
     
+  const response = await controller.Register(req)
+  
   res.json({
-    message:"OTPRecover"
+    response
   });
 
   });
