@@ -1,18 +1,17 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
-import generateAccessToken from '../services/loginservice';
-//import loging from '../controllers/login';
+import publicController from '../controllers/publicController';
 
 
 const routesPublic = express.Router();
+const controller = new publicController();
 
 // Get config vars
 dotenv.config();
 
-
 routesPublic.get("/", function (req, res) {
-  
+
   res.json({
     message:"API ALIVE - CHECK DOCUMENTATION FOR PROPER USAGE"
   });
@@ -20,33 +19,40 @@ routesPublic.get("/", function (req, res) {
 });
 
 
-routesPublic.post("/login", function (req, res) {
+routesPublic.post("/login",  (req, res) => {
   
-  console.log('Got body:', req.body);
-  console.log("Entering login: " + req.body.username)
-  const token = generateAccessToken({ username: req.body.username });
-  console.log("Token: " + token)
-  res.json({
-    token:token
-  });
-
+  controller.login(req)
+    .then( 
+      (data)=> res.json ({data})
+      )
+    .catch(
+      (err)=> res.json ({err})
+    )
+  
 });
   
 // recover password. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesPublic.get("/recover", function (req, res) {
+routesPublic.get("/recover",  (req, res) => {
 
-  res.json({
-    message:"Recover Password"
-  });
-    
+  controller.recover(req)
+    .then( 
+      (data)=> res.json ({data})
+      )
+    .catch(
+      (err)=> res.json ({err})
+    ) 
   });
 
 // OTP password. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesPublic.get("/otprecover", function (req, res) {
+routesPublic.get("/register",  (req, res) => {
     
-  res.json({
-    message:"OTPRecover"
-  });
+  controller.register(req)
+    .then( 
+      (data)=> res.json({data})
+      )
+    .catch(
+      (err)=> res.json({err})
+    )
 
   });
   
