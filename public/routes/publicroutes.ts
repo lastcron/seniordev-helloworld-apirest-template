@@ -7,10 +7,8 @@ import publicController from '../controllers/publicController';
 const routesPublic = express.Router();
 const controller = new publicController();
 
-
 // Get config vars
 dotenv.config();
-
 
 routesPublic.get("/", function (req, res) {
 
@@ -21,35 +19,40 @@ routesPublic.get("/", function (req, res) {
 });
 
 
-routesPublic.post("/login", async function (req, res) {
+routesPublic.post("/login",  (req, res) => {
   
-  const response = await controller.login(req)
+  controller.login(req)
+    .then( 
+      (data)=> res.json ({data})
+      )
+    .catch(
+      (err)=> res.json ({err})
+    )
   
-  res.json({
-    response
-  });
-
 });
   
 // recover password. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesPublic.get("/recover", async function (req, res) {
+routesPublic.get("/recover",  (req, res) => {
 
-  const response = await controller.recover(req)
-  
-  res.json({
-    response
-  });
-    
+  controller.recover(req)
+    .then( 
+      (data)=> res.json ({data})
+      )
+    .catch(
+      (err)=> res.json ({err})
+    ) 
   });
 
 // OTP password. ( Needs to be a Post instead of a GET - It is intentionally a GET for Testing Purposes only)
-routesPublic.get("/register", async function (req, res) {
+routesPublic.get("/register",  (req, res) => {
     
-  const response = await controller.Register(req)
-  
-  res.json({
-    response
-  });
+  controller.register(req)
+    .then( 
+      (data)=> res.json({data})
+      )
+    .catch(
+      (err)=> res.json({err})
+    )
 
   });
   

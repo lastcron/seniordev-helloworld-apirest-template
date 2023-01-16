@@ -8,17 +8,16 @@ import morgan from 'morgan';
 
 
 
+
+
 //loads the environment files
 dotenv.config();
 
 //creates an instance of the express server
 const app = express();
-
  
 // setup the morgan logger
 app.use(morgan('dev'));
-
-
 
 // Treblle API Monitoring enabling , check https://treblle.com. You need to create an account and generate your 
 // apikey and project id. Make sure you create an .env file in the root of your project to add these constants.
@@ -41,6 +40,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Setting a folder to serve static content (like documentation)
 app.use('/static', express.static("static-files"));
+
+// enable this if you run behind a proxy (e.g. nginx)
+app.set('trust proxy', 1);
 
 
 

@@ -1,42 +1,53 @@
 import generateAccessToken from '../services/loginservice';
 
+// debug library
+import debug = require('debug');
+// defintion of a logging descriptor
+const publicendpointLog = debug('HelloWorldAPI:publicEndpoints');
+
 interface loginResponse {
     token: string;
   }
   
   export default class publicController {
 
-    public async login(req: any): Promise<loginResponse> {
-
-      console.log('Got body:', req.body);
-      console.log("Entering login: " + req.body.username)
-      const token = generateAccessToken({ username: req.body.username });
-      console.log("Token: " + token)
-
-      return {
-        token:token
-      };
-    }
-
-    public async recover(req: any): Promise <any> {
-
-      console.log('Got body:', req.body);
-      console.log("Entering recover: ");
-
-      return {
-        message:"Recover Password"
-      }
+  
+    public login = (req: any) => { 
+          return new Promise <loginResponse> ( (resolve,reject) => {
+          
+            publicendpointLog('Got body:', req.body);
+            publicendpointLog("Entering login: " + req.body.username)
+          try {
+            const token = generateAccessToken({ username: req.body.username });
+            publicendpointLog("Token: " + token)
+            resolve ({token:token});
+          }
+          catch{
+            reject ({error:"Login unexpected error"});
+          }
+          })
     };
+    
 
-    public async Register(req: any): Promise <any> {
+    public  recover = (req: any) => {
+    return new Promise <any> ((resolve,reject) => {
 
-      console.log('Got body:', req.body);
-      console.log("Entering Register: ");
+      publicendpointLog('Got body:', req.body);
+      publicendpointLog("Entering recover: ");
+        resolve ({message:"Recover Password"});
 
-      return {
-        message:"Register"
-      }
-  };
+      })
+    } 
+
+    public  register = (req: any) => {
+      return new Promise <any> ((resolve,reject) => {
+  
+        publicendpointLog('Got body:', req.body);
+        publicendpointLog("Entering register: ");
+          resolve ({message:"Registration"});
+  
+        })
+      } 
 
 
 }
